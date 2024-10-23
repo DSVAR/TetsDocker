@@ -1,7 +1,9 @@
 ﻿FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 WORKDIR /app
-EXPOSE 5082   # HTTP порт
-EXPOSE 7200   # HTTPS порт
+EXPOSE 5082 
+  # HTTP порт
+EXPOSE 7200   
+# HTTPS порт
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
