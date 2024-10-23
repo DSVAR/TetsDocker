@@ -11,6 +11,6 @@ services:
     
     build:
       context: ./  # Указываем контекст сборки на папку с проектом Blazor App.
-      dockerfile: Dockerfile  # Указываем имя Dockerfile (по умолчанию).
+      dockerfile: BlazorApp1/Dockerfile  # Указываем имя Dockerfile (по умолчанию).
 
 
