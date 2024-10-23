@@ -1,0 +1,13 @@
+﻿version: '1'
+
+services:
+  TestDava:
+    image: blazorapp1
+    restart: always
+    ports:
+      - '4435 : 5082'
+      - '4436 : 7200' 
+        
+    build:
+      context: .
+      dockerfile: BlazorApp1/Dockerfile
