@@ -1,10 +1,10 @@
 ﻿# Используем образ ASP.NET Core для выполнения приложения.
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 WORKDIR /app
-EXPOSE 5082  
- # HTTP порт
-EXPOSE 7200   
-# HTTPS порт
+EXPOSE 5082   
+# HTTP порт
+EXPOSE 7200
+ # HTTPS порт
 
 # Используем образ SDK для сборки приложения.
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
@@ -14,13 +14,13 @@ ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 
 # Копируем только csproj и восстанавливаем зависимости.
-COPY ["BlazorApp1.csproj", "./"]  
+COPY ["BlazorApp1/BlazorApp1.csproj", "BlazorApp1/"]
+RUN dotnet restore "BlazorApp1/BlazorApp1.csproj"
 
-RUN dotnet restore "BlazorApp1.csproj"
+# Копируем остальные файлы проекта в рабочую директорию.
+COPY BlazorApp1/. BlazorApp1/
 
-# Копируем остальные файлы проекта.
-COPY . .
-
+# Переходим в папку с проектом перед публикацией.
 WORKDIR "/src/BlazorApp1"
 RUN dotnet publish "BlazorApp1.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
