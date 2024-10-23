@@ -9,22 +9,22 @@ ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 
 # Копируем файл проекта в папку /src/BlazorApp1/
-COPY ["BlazorApp1/Blazorapp.csproj", "BlazorApp1/"]
+COPY ["BlazorApp1/BlazorApp1.csproj", "BlazorApp1/"]
 
 # Выполняем восстановление зависимостей для проекта
-RUN dotnet restore "BlazorApp1/Blazorapp.csproj"
+RUN dotnet restore "BlazorApp1/BlazorApp1.csproj"
 
 # Копируем остальные файлы проекта в контейнер
-COPY blazorapp1/. blazorapp1/
+COPY BlazorApp1/. BlazorApp1/
 
 WORKDIR "/src/BlazorApp1"
-RUN dotnet build "Blazorapp.csproj" -c $BUILD_CONFIGURATION -o /app/build
+RUN dotnet build "BlazorApp1.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "Blazorapp.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "BlazorApp1.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "Blazorapp.dll"]
+ENTRYPOINT ["dotnet", "Blazorapp1.dll"]
