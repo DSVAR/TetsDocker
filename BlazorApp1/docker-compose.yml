@@ -1,6 +1,7 @@
 ﻿version: '1'
 
 services:
+  
   TestDava:
     image: blazorapp1
     restart: always
