@@ -8,8 +8,8 @@ WORKDIR /app
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["BlazorApp1/BlazorApp1.csproj", "BlazorApp1/"]
-RUN dotnet restore "BlazorApp1/BlazorApp1.csproj"
+COPY ["/BlazorApp1.csproj", "BlazorApp1/"]
+RUN dotnet restore "/BlazorApp1.csproj"
 COPY . .
 WORKDIR "/src/BlazorApp1"
 RUN dotnet build "BlazorApp1.csproj" -c $BUILD_CONFIGURATION -o /app/build
