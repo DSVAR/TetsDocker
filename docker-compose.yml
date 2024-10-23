@@ -8,9 +8,7 @@ services:
     ports:
       - "5082:5082"   # HTTP 
       - "7200:7200"   # HTTPS
-      - "7220:80"   # HTTPS
-      - "7230:443"   # HTTPS
     
     build:
-      context: .
-      dockerfile: BlazorApp1/Dockerfile
+      context: ./BlazorApp1  # Указываем контекст сборки на папку с проектом BlazorApp1
+      dockerfile: Dockerfile  # Указываем имя Dockerfile (по умолчанию)
