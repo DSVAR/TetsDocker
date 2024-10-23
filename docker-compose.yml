@@ -10,7 +10,7 @@ services:
       - "7200:7200"       # HTTPS
     
     build:
-      context: ./BlazorApp1  # Указываем контекст сборки на папку с проектом Blazor App.
+      context: ./  # Указываем контекст сборки на папку с проектом Blazor App.
       dockerfile: Dockerfile  # Указываем имя Dockerfile (по умолчанию).
 
 
