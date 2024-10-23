@@ -8,6 +8,8 @@ services:
     ports:
       - "5082:5082"   # HTTP 
       - "7200:7200"   # HTTPS
+      - "7220:80"   # HTTPS
+      - "7230:443"   # HTTPS
     
     build:
       context: .

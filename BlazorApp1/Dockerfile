@@ -1,6 +1,8 @@
 ﻿FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 EXPOSE 5082
 EXPOSE 7200
+EXPOSE 80
+EXPOSE 443
 
 WORKDIR /app
 
