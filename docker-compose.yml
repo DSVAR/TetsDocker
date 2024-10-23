@@ -1,4 +1,4 @@
-﻿version: '1'
+﻿version: '3'
 
 services:
   
@@ -6,9 +6,9 @@ services:
     image: blazorapp1
     restart: always
     ports:
-      - '4435 : 5082'
-      - '4436 : 7200' 
-        
+      - "5082:5082"   # HTTP 
+      - "7200:7200"   # HTTPS
+    
     build:
       context: .
       dockerfile: BlazorApp1/Dockerfile
