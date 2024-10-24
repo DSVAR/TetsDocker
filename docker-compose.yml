@@ -3,14 +3,14 @@
 services:
   
   TestDava:
-    image: blazorapp1     # Имя образа контейнера 
-    restart: always       # Перезапускать контейнер при сбоях 
+    image: blazorapp1     
+    restart: always       
     ports:
-      - "5082:5082"       # HTTP 
-      - "7200:7200"       # HTTPS
+      - "5082:5082"       
+      - "7200:7200"       
     
     build:
-      context: ./  # Указываем контекст сборки на папку с проектом Blazor App.
-      dockerfile: BlazorApp1/Dockerfile  # Указываем имя Dockerfile (по умолчанию).
+      context: .  
+      dockerfile: BlazorApp1/Dockerfile 
 
 
