@@ -18,4 +18,5 @@ WORKDIR /app
 COPY --from=build-env /app/out .
 
 # Указываем команду для запуска приложения при старте контейнера 
-ENTRYPOINT ["dotnet", "BlazorApp1.dll"]
+#ENTRYPOINT ["dotnet", "BlazorApp1.dll"]
+ENTRYPOINT ["/bin/sh"]
