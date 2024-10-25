@@ -11,6 +11,6 @@ services:
     
     build:
       context: .  
-      dockerfile: BlazorApp1/Dockerfile 
+      dockerfile: Dockerfile 
 
 
