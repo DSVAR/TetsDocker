@@ -25,3 +25,4 @@ EXPOSE 8080
 
 # Запускаем Nginx
 ENTRYPOINT ["nginx", "-g", "daemon off;"]
+#
