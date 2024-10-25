@@ -2,7 +2,6 @@
 USER $APP_UID
 WORKDIR /app
 
-RUN echo "start"
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
@@ -19,13 +18,8 @@ FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
 RUN dotnet publish "BlazorApp1.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
-RUN echo "EndPublish"
-
-RUN ls -la /app/publish
-RUN ls -la /app/
-RUN ls /src/
-RUN ls /app/publish
-RUN ls /app/
+# Выводим содержимое папки с опубликованными файлами
+RUN echo "Содержимое папки /app/publish:" && ls -la /app/publish
 
 FROM base AS final
 WORKDIR /app
