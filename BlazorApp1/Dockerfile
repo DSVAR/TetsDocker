@@ -1,18 +1,17 @@
-﻿# Этап базового образа
+﻿
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 USER $APP_UID
 WORKDIR /app
 
-# Этап сборки
+
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 
-# Копируем файл проекта и восстанавливаем зависимости
+
 COPY ["BlazorApp1.csproj", "./"]
 RUN dotnet restore "BlazorApp1.csproj"
 
-# Копируем остальные файлы
 COPY . .
 
 # Собираем приложение
@@ -24,12 +23,13 @@ RUN ls -la /app/build
 # Этап публикации
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "BlazorApp1.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "BlazorApp1.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false || { echo 'Ошибка публикации'; exit 1; }
+
 
 # Выводим содержимое папки с опубликованными файлами
-RUN echo "Содержимое папки /app/publish:" && ls -la /app/publish
+RUN if [ -d /app/publish ]; then echo "Директория существует"; ls -la /app/publish; else echo "Директория не найдена"; fi
 
-# Этап финального образа
+# Этап финал
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
