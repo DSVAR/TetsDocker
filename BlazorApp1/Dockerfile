@@ -21,7 +21,7 @@ COPY --from=build /app/publish /usr/share/nginx/html
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 # Открываем порт 80
-EXPOSE 80
+EXPOSE 8080
 
 # Запускаем Nginx
 ENTRYPOINT ["nginx", "-g", "daemon off;"]
