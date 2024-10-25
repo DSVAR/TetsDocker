@@ -1,27 +1,28 @@
-﻿# Этап сборки
+﻿FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
+USER $APP_UID
+WORKDIR /app
+
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 
-# Копируем файл проекта и восстанавливаем зависимости
 COPY ["BlazorApp1.csproj", "./"]
 RUN dotnet restore "BlazorApp1.csproj"
 
 COPY . .
 
-# Собираем приложение
-RUN dotnet publish "BlazorApp1.csproj" -c Release -o /app/publish
+RUN dotnet build "BlazorApp1.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
-# Этап финал Nginx
-FROM nginx:alpine AS final
+FROM build AS publish
+ARG BUILD_CONFIGURATION=Release
 
-# Копируем файлы в директорию Nginx
-COPY --from=build /app/publish /usr/share/nginx/html
+RUN dotnet publish "BlazorApp1.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
-# Копируем конфигурацию Nginx
-COPY nginx.conf /etc/nginx/conf.d/default.conf
 
-# Открываем порт 80
-EXPOSE 80
+FROM base AS final
 
-# Запускаем Nginx
-ENTRYPOINT ["nginx", "-g", "daemon off;"]
+WORKDIR /app
+
+COPY --from=publish /app/publish .
+
+ENTRYPOINT ["dotnet", "BlazorApp1.dll"]
