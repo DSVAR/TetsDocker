@@ -6,8 +6,7 @@ services:
     image: blazorapp1     
     restart: always       
     ports:
-      - "5082:5082"       
-      - "7200:7200"       
+      - "5084:8080"         
     
     build:
       context: .  
