@@ -24,11 +24,13 @@ RUN dotnet publish "BlazorApp1.csproj" -c $BUILD_CONFIGURATION -o /app/publish /
 
 # Проверяем содержимое каталога out
 RUN echo "Содержимое каталога publish:" && ls -l /app/publish
-RUN echo "Содержимое каталога app:" && ls -l /app/
-RUN echo "Содержимое каталога build:" && ls -l /app/build
 
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
+
+RUN echo "Содержимое каталога app:" && ls -l /app/
+RUN echo "Содержимое каталога build:" && ls -l /app/build
+
 ENTRYPOINT ["dotnet", "BlazorApp1.dll"]
