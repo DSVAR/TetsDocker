@@ -10,7 +10,7 @@ WORKDIR /src
 COPY ["BlazorApp1.csproj", "./"]
 RUN dotnet restore "BlazorApp1.csproj"
 
-RUN echo "Содержимое каталога app:" && ls -l /app/
+
 RUN echo "Содержимое каталога ./:" && ls -l ./
 COPY . .
 WORKDIR "/src/"
