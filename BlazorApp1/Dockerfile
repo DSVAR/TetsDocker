@@ -9,16 +9,23 @@ ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["BlazorApp1.csproj", "./"]
 RUN dotnet restore "BlazorApp1.csproj"
+
+RUN echo "Содержимое каталога app:" && ls -l /app/
+RUN echo "Содержимое каталога ./:" && ls -l ./
 COPY . .
 WORKDIR "/src/"
 RUN dotnet build "BlazorApp1.csproj" -c $BUILD_CONFIGURATION -o /app/build
+
+RUN echo "Содержимое каталога build:" && ls -l /app/build
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
 RUN dotnet publish "BlazorApp1.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 # Проверяем содержимое каталога out
-RUN echo "Содержимое каталога out:" && ls -l /app/publish
+RUN echo "Содержимое каталога publish:" && ls -l /app/publish
+RUN echo "Содержимое каталога app:" && ls -l /app/
+RUN echo "Содержимое каталога build:" && ls -l /app/build
 
 
 FROM base AS final
