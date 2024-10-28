@@ -16,4 +16,4 @@ WORKDIR /app
 COPY --from=build /app/out ./
 
 # Указываем команду для запуска приложения
-ENTRYPOINT ["dotnet", "MyBlazorApp.dll"]
+ENTRYPOINT ["dotnet", "BlazorApp1.dll"]
