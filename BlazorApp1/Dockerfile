@@ -22,5 +22,5 @@ FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
 
-#ENTRYPOINT ["dotnet", "BlazorApp1.dll"]
-ENTRYPOINT ["dotnet", "/bin/sh"]
+ENTRYPOINT ["dotnet", "BlazorApp1.dll"]
+#ENTRYPOINT ["dotnet", "/bin/sh"]
