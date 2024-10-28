@@ -4,11 +4,11 @@ ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 
 # Копируем csproj и восстанавливаем зависимости
-COPY *.csproj ./
-RUN dotnet restore
+COPY BlazorApp1/*.csproj ./BlazorApp1/
+RUN dotnet restore ./BlazorApp1/BlazorApp1.csproj
 
 # Копируем остальные файлы проекта
-COPY . .
+COPY BlazorApp1/. ./BlazorApp1/
 
 WORKDIR "/src/BlazorApp1"
 RUN dotnet build "BlazorApp1.csproj" -c $BUILD_CONFIGURATION -o /app/build
