@@ -3,6 +3,7 @@
   "iisSettings": {
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
+    "commandLineArgs": "--contentroot=/content-root-path",
     "iisExpress": {
       "applicationUrl": "http://localhost:8261",
       "sslPort": 44315
