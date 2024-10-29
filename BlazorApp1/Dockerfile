@@ -20,7 +20,8 @@ RUN echo "Содержимое каталога build:" && ls -l /app/
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "BlazorApp1.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "BlazorApp1.csproj" -c $BUILD_CONFIGURATION -o /app/publish1 /p:UseAppHost=false
+RUN dotnet build "BlazorApp1.csproj" -c $BUILD_CONFIGURATION -o /app/publish 
 
 # Проверяем содержимое каталога out
 RUN echo "Содержимое каталога publish:" && ls -l /app/publish
@@ -30,6 +31,7 @@ RUN echo "Содержимое каталога build:" && ls -l /app/
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
+COPY --from=publish /app .
 
 
 
