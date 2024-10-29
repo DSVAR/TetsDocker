@@ -17,6 +17,7 @@ WORKDIR "/src/"
 RUN dotnet build "BlazorApp1.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 RUN echo "Содержимое каталога build:" && ls -l /app/build
+RUN echo "Содержимое каталога src:" && ls -l /src/
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
@@ -30,7 +31,6 @@ FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
 
-RUN echo "Содержимое каталога app:" && ls -l /app/
-RUN echo "Содержимое каталога build:" && ls -l /app/build
+RUN echo "Содержимое каталога publish:" && ls -l /app/publish
 
 ENTRYPOINT ["dotnet", "BlazorApp1.dll"]
