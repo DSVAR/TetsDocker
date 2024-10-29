@@ -9,7 +9,7 @@ RUN dotnet restore "BlazorApp1.csproj"
 RUN echo "Содержимое каталога ./:" && ls -l ./
 
 COPY . ./
-RUN dotnet publish Client -c Release -o /app/publish
+RUN dotnet publish BlazorApp1 -c Release -o /app/publish
 
 RUN echo "Содержимое каталога publish:" && ls -l /app/publish
 
