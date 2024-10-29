@@ -30,6 +30,7 @@ RUN echo "Содержимое каталога publish:" && ls -l /app/publish
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
+COPY --from=build /app/publish .
 
 
 
