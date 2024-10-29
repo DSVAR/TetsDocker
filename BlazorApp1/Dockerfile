@@ -17,7 +17,6 @@ WORKDIR "/src/"
 RUN dotnet build "BlazorApp1.csproj" -c $BUILD_CONFIGURATION -o /app/
 
 RUN echo "Содержимое каталога build:" && ls -l /app/
-RUN echo "Содержимое каталога src:" && ls -l /src/
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
@@ -25,12 +24,12 @@ RUN dotnet publish "BlazorApp1.csproj" -c $BUILD_CONFIGURATION -o /app/publish /
 
 # Проверяем содержимое каталога out
 RUN echo "Содержимое каталога publish:" && ls -l /app/publish
+RUN echo "Содержимое каталога build:" && ls -l /app/
 
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-COPY --from=build /app/publish .
 
 
 
