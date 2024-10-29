@@ -14,9 +14,9 @@ RUN dotnet restore "BlazorApp1.csproj"
 RUN echo "Содержимое каталога ./:" && ls -l ./
 COPY . .
 WORKDIR "/src/"
-RUN dotnet build "BlazorApp1.csproj" -c $BUILD_CONFIGURATION -o /app/build
+RUN dotnet build "BlazorApp1.csproj" -c $BUILD_CONFIGURATION -o /app/
 
-RUN echo "Содержимое каталога build:" && ls -l /app/build
+RUN echo "Содержимое каталога build:" && ls -l /app/
 RUN echo "Содержимое каталога src:" && ls -l /src/
 
 FROM build AS publish
@@ -31,6 +31,6 @@ FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
 
-RUN echo "Содержимое каталога publish:" && ls -l /app/publish
+
 
 ENTRYPOINT ["dotnet", "BlazorApp1.dll"]
